@@ -5,4 +5,11 @@ jobs:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - run: echo "hello world, my dude"
+      - restore_cache:
+          key: logicmag-{{ checksum "Gemfile.lock" }}
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: logicmag-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: ./scripts/deploy.sh
