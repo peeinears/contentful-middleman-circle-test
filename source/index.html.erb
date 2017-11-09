@@ -8,7 +8,7 @@ title: Home
   <ul class="list-inline">
     <% issues.each do |issue| %>
       <li>
-        <a href="/issues/<%= issue.id %>">
+        <a href="issues/<%= issue.id %>">
           <img class="img-thumbnail" src="<%= issue.cover_image.url %>" style="max-width: 200px;" />
         </a>
       </li>
