@@ -1,16 +1,17 @@
 ---
-title: Welcome to Middleman
+title: Home
 ---
 
-<h1>Issues</h1>
-<% issues.each do |issue| %>
-  <h2><%= issue.title %></h2>
-  <img src="<%= issue.cover_image.url %>" />
-  <br />
-  <%= issue.published_at %>
-  <h3>Articles</h3>
-  <ul>
-    <% issue.articles.each do |article| %>
-      <li><em><%= article.title %></em> by <a href="<%= article.authors.first.website %>"><%= article.authors.first.name %></a></li>
+<div class="container">
+  <h1 class="text-center">LOGIC</h1>
+  <h2>Issues</h2>
+  <ul class="list-inline">
+    <% issues.each do |issue| %>
+      <li>
+        <a href="/issues/<%= issue.id %>">
+          <img class="img-thumbnail" src="<%= issue.cover_image.url %>" style="max-width: 200px;" />
+        </a>
+      </li>
     <% end %>
-<% end %>
+  </ul>
+</div>

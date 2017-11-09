@@ -1,3 +1,5 @@
+require 'dotenv/load'
+
 ###
 # Compass
 ###
@@ -47,15 +49,25 @@
 #   end
 # end
 
+if data.respond_to?(:content)
+  data.content.issues.values.each do |issue|
+    proxy "/issues/#{issue.id}/index.html", "/issue.html", :locals => { :issue => issue }, :ignore => true
+  end
+end
+
 helpers do
   def issues
     data.content.issues.values
   end
+
+  def page_title
+    current_page.data.title || current_page.metadata.try(:[], :locals).try(:[], :issue).try(:[], :title) || "LOGIC"
+  end
 end
 
 activate :contentful do |f|
-  f.space         = { content: '17a1yauqgxgd' }
-  f.access_token  = '5b8c49fbb5069f2901ff21a7a854cbeb26b50255087a174f9feda9711e3ccb0c'
+  f.space         = { content: ENV['CONTENTFUL_SPACE_ID'] }
+  f.access_token  = ENV['CONTENTFUL_ACCESS_TOKEN']
   # f.cda_query     = QUERY
   f.content_types = { issues: 'issue' }
 end
@@ -65,6 +77,9 @@ set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 
 set :images_dir, 'images'
+
+set :relative_links, true
+activate :directory_indexes
 
 # Build-specific configuration
 configure :build do

@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 class="text-center"><%= issue.title %></h1>
+  <%= issue.published_at %>
+  <h3>Articles</h3>
+  <ul>
+    <% issue.articles.each do |article| %>
+      <li><em><%= article.title %></em> by <a href="<%= article.authors.first.website %>"><%= article.authors.first.name %></a></li>
+    <% end %>
+  </ul>
