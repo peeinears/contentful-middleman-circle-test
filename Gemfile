@@ -2,11 +2,10 @@
 # the following line to use "http://" instead
 source 'https://rubygems.org'
 
-gem "middleman", "~>3.4.1"
+gem "middleman", "~> 4.1.2"
 
-gem "contentful_middleman", "~>2.1.3"
-
-# Live-reloading plugin
-gem "middleman-livereload", "~> 3.3.0"
+gem "contentful_middleman", github: 'contentful/contentful_middleman', branch: 'dl/upgrade-to-v4', ref: 'e90780f3566e05c3f68aae3d824bcabcd359bc9f'
 
 gem "dotenv", "~> 2.2.1"
+
+gem "byebug", "~> 9.1.0"
