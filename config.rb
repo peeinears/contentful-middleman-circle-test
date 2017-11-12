@@ -49,8 +49,8 @@ require 'dotenv/load'
 #   end
 # end
 
-if data.respond_to?(:content)
-  data.content.issues.values.each do |issue|
+if app.data.respond_to?(:content)
+  app.data.content.issues.values.each do |issue|
     proxy "/issues/#{issue.id}/index.html", "/issue.html", :locals => { :issue => issue }, :ignore => true
   end
 end
