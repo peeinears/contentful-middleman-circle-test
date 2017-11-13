@@ -49,15 +49,30 @@ require 'dotenv/load'
 #   end
 # end
 
+module IssueSlug
+  def issue_slug(issue)
+    issue.title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  end
+end
+
+include IssueSlug
+
 if app.data.respond_to?(:content)
   app.data.content.issues.values.each do |issue|
-    proxy "/issues/#{issue.id}/index.html", "/issue.html", :locals => { :issue => issue }, :ignore => true
+    slug = issue_slug(issue)
+    proxy "/issues/#{slug}/index.html", "/issue.html", :locals => { :issue => issue }, :ignore => true
   end
 end
 
 helpers do
+  include IssueSlug
+
   def issues
     data.content.issues.values
+  end
+
+  def issue_path(issue)
+    "issues/#{issue_slug(issue)}"
   end
 
   def page_title
